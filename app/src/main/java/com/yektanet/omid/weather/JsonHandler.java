@@ -24,10 +24,21 @@ class JsonHandler {
         this.Json = json;
         try {
             reader = new JSONObject(json);
+            init();
         } catch (JSONException e) {
             isOkay = false;
             e.printStackTrace();
         }
+
+
+
+    }
+
+    private void init() throws JSONException {
+        JSONObject weather = reader.getJSONObject("weather");
+        JSONObject main = reader.getJSONObject("main");
+        JSONObject wind = reader.getJSONObject("wind");
+
 
 
     }
