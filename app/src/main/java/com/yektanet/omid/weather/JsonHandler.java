@@ -11,15 +11,14 @@ class JsonHandler {
     private boolean isOkay = true;
     private WindDirect windDirect;
 
-
-    private String city;
-    private String main;
+    private String mainWeather;
     private String description;
     private int humidity;
     private float temp;
     private float minTemp;
-    private float maxTem;
-
+    private float maxTemp;
+    private double windSpeed;
+    private int windDegree;
     JsonHandler(String json){
         this.Json = json;
         try {
@@ -39,7 +38,18 @@ class JsonHandler {
         JSONObject main = reader.getJSONObject("main");
         JSONObject wind = reader.getJSONObject("wind");
 
+        mainWeather = weather.getString("main");
+        description = weather.getString("description");
+        humidity = main.getInt("humidity");
+        temp = getTempInCelcius(main.getDouble("temp"));
+        minTemp = getTempInCelcius(main.getDouble("min_temp"));
+        maxTemp = getTempInCelcius(main.getDouble("max_temp"));
+        windSpeed = wind.getDouble("speed");
+        windDegree = wind.getInt("deg");
 
+    }
 
+    private float getTempInCelcius(double temp) {
+        return (float) (temp - 273.3);
     }
 }
