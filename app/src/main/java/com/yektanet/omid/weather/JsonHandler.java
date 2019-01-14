@@ -1,5 +1,6 @@
 package com.yektanet.omid.weather;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,22 +35,72 @@ class JsonHandler {
     }
 
     private void init() throws JSONException {
-        JSONObject weather = reader.getJSONObject("weather");
+        JSONArray weather = reader.getJSONArray("weather");
+        System.out.println(weather.toString());
         JSONObject main = reader.getJSONObject("main");
+        System.out.println(main.toString());
         JSONObject wind = reader.getJSONObject("wind");
+        System.out.println(wind.toString());
 
-        mainWeather = weather.getString("main");
-        description = weather.getString("description");
+        mainWeather = weather.getJSONObject(0).getString("main");
+        System.out.println(mainWeather);
+        description = weather.getJSONObject(0).getString("description");
+        System.out.println(description);
         humidity = main.getInt("humidity");
+        System.out.println(humidity);
         temp = getTempInCelcius(main.getDouble("temp"));
-        minTemp = getTempInCelcius(main.getDouble("min_temp"));
-        maxTemp = getTempInCelcius(main.getDouble("max_temp"));
+        System.out.println(temp);
+        minTemp = getTempInCelcius(main.getDouble("temp_min"));
+        System.out.println(minTemp);
+        maxTemp = getTempInCelcius(main.getDouble("temp_max"));
+        System.out.println(maxTemp);
         windSpeed = wind.getDouble("speed");
+        System.out.println(windSpeed);
         windDegree = wind.getInt("deg");
-
+        System.out.println(windDegree);
     }
 
     private float getTempInCelcius(double temp) {
         return (float) (temp - 273.3);
+    }
+
+    public boolean isOkay() {
+        return isOkay;
+    }
+
+    public WindDirect getWindDirect() {
+        return windDirect;
+    }
+
+    public String getMainWeather() {
+        return mainWeather;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public float getTemp() {
+        return temp;
+    }
+
+    public float getMinTemp() {
+        return minTemp;
+    }
+
+    public float getMaxTemp() {
+        return maxTemp;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public int getWindDegree() {
+        return windDegree;
     }
 }
