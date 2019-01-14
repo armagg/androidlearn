@@ -1,26 +1,19 @@
 package com.yektanet.omid.weather;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     JsonHandler jsonHandler;
 
     final static String CONNECTIVITY_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +30,39 @@ public class MainActivity extends AppCompatActivity {
 
             new JsonHandler(s, City.TEHRAN);
 */
+        TextView textView = findViewById(R.id.text);
+        String s = null;
+        JsonHandler jsonHandler;
+        try {
+            Network network = new Network(City.TEHRAN);
+            jsonHandler = network.getJsonHandler();
+            s = jsonHandler.getJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (s != null)
+        textView.setText(s);
 
 
     }
 
+    private Intent intentCreator(JsonHandler j) {
+        Intent intent = new Intent(this, oneCityViewer.class);
+        intent.putExtra("isOkay", j.isOkay());
+        if (j.isOkay()) {
+            intent.putExtra("city", j.getCity());
+            intent.putExtra("windDirect", j.getWindDirect());
+            intent.putExtra("mainWeather",j.getMainWeather() );
+            intent.putExtra("description", j.getDescription());
+            intent.putExtra("humidity", j.getHumidity());
+            intent.putExtra("temp", j.getTemp());
+            intent.putExtra("minTemp", j.getMinTemp());
+            intent.putExtra("maxTemp", j.getMaxTemp());
+            intent.putExtra("windSpeed", j.getWindSpeed());
+        }
+        return intent;
+    }
 
 
     @Override
@@ -52,33 +74,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //registerReceiver(receiver, intentFilter);
     }
-
-    // Self explanatory method
 
 
 
 
     @SuppressLint("ShowToast")
     public void onClick(View view) {
-    /*    Toast.makeText(this, "vared shod ", Toast.LENGTH_LONG).show();
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
-
-        notifBuilder.setContentText("this is my first notif");
-        notifBuilder.setSubText("hahaha ");
-        notifBuilder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(001, notifBuilder.build());
-    */}
+    }
 
 
-    private PendingIntent creatPIntent(){
+    private PendingIntent creatPIntent() {
         Intent intent = new Intent(this, MainActivity.class);
         return PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
     }
-
 
 
 }
