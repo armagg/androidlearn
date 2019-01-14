@@ -82,19 +82,23 @@ class JsonHandler {
         return (float) (temp - 273.3);
     }
 
-    public boolean isOkay() {
+    boolean isOkay() {
         return isOkay;
     }
 
-    public City getCity() {
+    String getJson() {
+        return Json;
+    }
+
+    City getCity() {
         return city;
     }
 
-    public WindDirect getWindDirect() {
+    WindDirect getWindDirect() {
         return windDirect;
     }
 
-    public String getMainWeather() {
+    String getMainWeather() {
         return mainWeather;
     }
 
@@ -102,27 +106,24 @@ class JsonHandler {
         return description;
     }
 
-    public int getHumidity() {
+    int getHumidity() {
         return humidity;
     }
 
-    public float getTemp() {
+    float getTemp() {
         return temp;
     }
 
-    public float getMinTemp() {
+    float getMinTemp() {
         return minTemp;
     }
 
-    public float getMaxTemp() {
+    float getMaxTemp() {
         return maxTemp;
     }
 
-    public double getWindSpeed() {
+    double getWindSpeed() {
         return windSpeed;
     }
 
-    public int getWindDegree() {
-        return windDegree;
-    }
 }

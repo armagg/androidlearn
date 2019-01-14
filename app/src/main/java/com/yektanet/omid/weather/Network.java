@@ -1,8 +1,13 @@
 package com.yektanet.omid.weather;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,8 +21,7 @@ class Network {
 
 
 
-    private static String HTTPGetCall(String WebMethodURL) throws IOException, MalformedURLException
-    {
+    private static String HTTPGetCall(String WebMethodURL) throws IOException, MalformedURLException {
         StringBuilder response = new StringBuilder();
 
         URL u = new URL(WebMethodURL);

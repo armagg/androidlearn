@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.text);
         String s = null;
         JsonHandler jsonHandler;
-        try {
+        /*try {
             Network network = new Network(City.TEHRAN);
             jsonHandler = network.getJsonHandler();
             s = jsonHandler.getJson();
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (s != null)
         textView.setText(s);
-
+*/
+        FetchData fetchData = null;
 
     }
 

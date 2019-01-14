@@ -23,11 +23,11 @@
 
         <receiver android:name=".NetworkChangeReceiver">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".oneCityViewer"></activity>
     </application>
 
 </manifest>

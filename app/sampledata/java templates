@@ -62,3 +62,26 @@
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*    Toast.makeText(this, "vared shod ", Toast.LENGTH_LONG).show();
+        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this);
+
+        notifBuilder.setContentText("this is my first notif");
+        notifBuilder.setSubText("hahaha ");
+        notifBuilder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(001, notifBuilder.build());
+    */
