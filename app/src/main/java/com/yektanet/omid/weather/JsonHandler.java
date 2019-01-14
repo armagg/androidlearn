@@ -11,7 +11,7 @@ class JsonHandler {
     private JSONObject reader;
     private boolean isOkay = true;
     private WindDirect windDirect;
-
+    private City city;
     private String mainWeather;
     private String description;
     private int humidity;
@@ -20,8 +20,9 @@ class JsonHandler {
     private float maxTemp;
     private double windSpeed;
     private int windDegree;
-    JsonHandler(String json){
+    JsonHandler(String json, City city){
         this.Json = json;
+        this.city = city;
         try {
             reader = new JSONObject(json);
             init();
@@ -57,15 +58,36 @@ class JsonHandler {
         windSpeed = wind.getDouble("speed");
         System.out.println(windSpeed);
         windDegree = wind.getInt("deg");
+
+        setWindDirect(windDegree);
         System.out.println(windDegree);
     }
 
-    private float getTempInCelcius(double temp) {
+    private void setWindDirect(int windDegree) {
+        if ((windDegree>=0 && windDegree<=45)|| (windDegree<365 && windDegree>=315)){
+            windDirect=WindDirect.EAST;
+        }
+        else if ((windDegree>=45 && windDegree<=135)){
+            windDirect = WindDirect.NORTH;
+        }
+        else if ((windDegree>=135 && windDegree<=225)){
+            windDirect = WindDirect.EAST;
+        }
+        else {
+            windDirect = WindDirect.SOUTH;
+        }
+    }
+
+    private static float getTempInCelcius(double temp) {
         return (float) (temp - 273.3);
     }
 
     public boolean isOkay() {
         return isOkay;
+    }
+
+    public City getCity() {
+        return city;
     }
 
     public WindDirect getWindDirect() {
