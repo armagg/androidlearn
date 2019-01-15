@@ -52,7 +52,7 @@ class FetchData extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void avoid) {
         super.onPostExecute(avoid);
-        jsonHandler = new JsonHandler(getFetchedData(), city);
+
 
     }
 
