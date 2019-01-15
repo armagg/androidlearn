@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 class Network {
-    private JsonHandler jsonHandler;
+   /* private JsonHandler jsonHandler;
     public Network(City city) throws Exception {
         String  address=Contants.getAddress(city);
         jsonHandler = new JsonHandler(HTTPGetCall(address), city);
@@ -43,5 +43,5 @@ class Network {
 
     public JsonHandler getJsonHandler() {
         return jsonHandler;
-    }
+    }*/
 }

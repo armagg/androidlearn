@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import java.sql.Time;
+
 public class MainActivity extends AppCompatActivity {
 
     JsonHandler jsonHandler;
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        TextView textView = findViewById(R.id.text);
 /*
         String s = "{\"coord\":{\"lon\":51.42,\"lat\":35.69},\"weather\":[{\"id\":741,\"main\":\"Fog\"" +
                 ",\"description\":\"fog\",\"icon\":\"50d\"},{\"id\":701,\"main\":\"Mist\",\"description\":" +
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
             new JsonHandler(s, City.TEHRAN);
 */
-        TextView textView = findViewById(R.id.text);
         String s = null;
         JsonHandler jsonHandler;
         /*try {
@@ -44,7 +45,30 @@ public class MainActivity extends AppCompatActivity {
         if (s != null)
         textView.setText(s);
 */
-        FetchData fetchData = null;
+        boolean isFetched=false;
+        FetchData fetchData=null;
+        try {
+            fetchData = new FetchData(Contants.getAddress(City.TEHRAN));
+            fetchData.execute();
+            fetchData.doInBackground();
+            isFetched =true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assert fetchData != null;
+        String str = fetchData.getFetchedData();
+
+        if (isFetched && fetchData!=null){
+            textView.setText(str);
+        }
+
+
+
 
     }
 
