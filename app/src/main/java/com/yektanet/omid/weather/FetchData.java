@@ -15,10 +15,13 @@ class FetchData extends AsyncTask<Void, Void, Void> {
     private String fetchedData = "";
     private City city;
     private JsonHandler jsonHandler;
-
-    public FetchData(String address, City city) {
+    private UpdateCity updateCity;
+    private int n;
+    public FetchData(String address, City city, UpdateCity updateCity, int n){
         this.address = address;
         this.city = city;
+        this.updateCity = updateCity;
+        this.n = n;
     }
 
     @Override
@@ -36,6 +39,12 @@ class FetchData extends AsyncTask<Void, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        JsonHandler jsonHandler = new JsonHandler(getFetchedData(), city);
+        if (city == City.TEHRAN) {
+            updateCity.setContent(jsonHandler, n, true);
+        }
+        else
+            updateCity.setContent(jsonHandler, n, false);
 
         return null;
     }
@@ -47,7 +56,7 @@ class FetchData extends AsyncTask<Void, Void, Void> {
 
     }
 
-    String getFetchedData() {
+    private String getFetchedData() {
         return fetchedData;
     }
 
