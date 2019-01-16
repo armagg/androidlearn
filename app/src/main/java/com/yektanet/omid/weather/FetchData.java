@@ -17,8 +17,8 @@ class FetchData extends AsyncTask<Void, Void, Void> {
     private JsonHandler jsonHandler;
     private UpdateCity updateCity;
     private int n;
-    public FetchData(String address, City city, UpdateCity updateCity, int n){
-        this.address = address;
+    public FetchData( City city, UpdateCity updateCity, int n) throws Exception {
+        this.address = Constants.getAddress(city);
         this.city = city;
         this.updateCity = updateCity;
         this.n = n;
@@ -39,19 +39,19 @@ class FetchData extends AsyncTask<Void, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JsonHandler jsonHandler = new JsonHandler(getFetchedData(), city);
-        if (city == City.TEHRAN) {
-            updateCity.setContent(jsonHandler, n, true);
-        }
-        else
-            updateCity.setContent(jsonHandler, n, false);
-
+        jsonHandler = new JsonHandler(getFetchedData(), city);
         return null;
     }
 
     @Override
     protected void onPostExecute(Void avoid) {
         super.onPostExecute(avoid);
+        if (city == City.TEHRAN) {
+            updateCity.setContent(jsonHandler, n, true);
+        }
+        else
+            updateCity.setContent(jsonHandler, n, false);
+
 
 
     }

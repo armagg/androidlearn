@@ -126,4 +126,8 @@ class JsonHandler {
         return windSpeed;
     }
 
+    @Override
+    public String toString() {
+        return getCity().toString() + "\t " + getTemp()+ "\n";
+    }
 }
