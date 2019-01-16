@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     TextView windDirect;
 
 
-
     HashMap<City, Intent> intents;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private Intent intentCreator(JsonHandler j) {
+    static Intent intentCreator(JsonHandler j) {
         Intent intent = new Intent(this, oneCityViewer.class);
         intent.putExtra("isOkay", j.isOkay());
         if (j.isOkay()) {
@@ -51,41 +51,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialJsons() throws Exception {
         ArrayList<ListComponent> list = new ArrayList<>(5);
-            int step = 0;
-        for (final City city : City.values()) {
-             new FetchData(Contants.getAddress(city), city, new UpdateCity() {
-                @Override
-                public void setContent(JsonHandler jsonHandler, int n, boolean isMain) {
-                    intents.put(city, intentCreator(jsonHandler));
-                    if (isMain){
-                        cityName = findViewById(R.id.main_city);
-                        temp = findViewById(R.id.main_temp);
-                        minTemp = findViewById(R.id.main_min_temp);
-                        maxTemp = findViewById(R.id.main_max_temp);
-                        windSpeed = findViewById(R.id.main_wind_speed);
-                        windDirect = findViewById(R.id.main_wind_direct);
-                        cityName.setText(jsonHandler.getCity().toString());
-                        temp.setText(String.valueOf(jsonHandler.getTemp()));
-                        minTemp.setText(String.valueOf(jsonHandler.getMinTemp()));
-                        maxTemp.setText(String.valueOf(jsonHandler.getMaxTemp()));
-                        windSpeed.setText((String.valueOf(jsonHandler.getWindSpeed())));
-                        windDirect.setText(jsonHandler.getWindDirect().toString());
-                    }
-                    else{
 
 
-                    }
 
 
-                }
-            }, step).execute();
-             step++;
-
-        }
     }
-
-
-
-
-
 }
+
+/*
+
+        if (isMain) {
+        cityName = findViewById(R.id.main_city);
+        temp = findViewById(R.id.main_temp);
+        minTemp = findViewById(R.id.main_min_temp);
+        maxTemp = findViewById(R.id.main_max_temp);
+        windSpeed = findViewById(R.id.main_wind_speed);
+        windDirect = findViewById(R.id.main_wind_direct);
+        cityName.setText(jsonHandler.getCity().toString());
+        temp.setText(String.valueOf(jsonHandler.getTemp()));
+        minTemp.setText(String.valueOf(jsonHandler.getMinTemp()));
+        maxTemp.setText(String.valueOf(jsonHandler.getMaxTemp()));
+        windSpeed.setText((String.valueOf(jsonHandler.getWindSpeed())));
+        windDirect.setText(jsonHandler.getWindDirect().toString());
+*/
